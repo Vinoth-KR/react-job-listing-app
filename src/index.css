@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+
+:root {
+  --font-family: 'Roboto', sans-serif;
+  --grid-columns: 3;
+}
+
+body {
+  font-family: var(--font-family);
+  color: black;
+}
+
+/* Example grid container */
+.grid {
+  display: grid;
+  grid-template-columns: '70% 28%';
+  gap: 1rem;
+}
