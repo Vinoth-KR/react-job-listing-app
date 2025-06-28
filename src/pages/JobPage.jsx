@@ -1,9 +1,20 @@
-import { useLoaderData, Link, NavLink} from 'react-router-dom';
-import { FaArrowLeft, FaMapMarker } from 'react-icons/fa'
-import Spinner from '../components/Spinner';
+import { useLoaderData, Link, useNavigate} from 'react-router-dom';
+import { FaArrowLeft, FaMapMarker } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
-const JobPage = () => {
+const JobPage = ({deleteJob}) => {
   const job = useLoaderData();
+  const navigate = useNavigate();
+
+  const onDeleteClick = (id) => {
+    if (window.confirm('Are you sure you want to delete this job listing?')) {
+      deleteJob(id);
+      toast.success('Job listing deleted successfully!');
+      
+      // Redirect to the jobs page after deletion
+      return navigate('/jobs');
+    }
+  }
 
   // #region Fetching jobs using UseEffect and State
 //   const [job, setJob] = useState(null);
@@ -112,7 +123,7 @@ const JobPage = () => {
                 className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >Edit Job
                 </Link>
-              <button
+              <button onClick={() => onDeleteClick(job.id)}
                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
               >
                 Delete Job
